@@ -31,6 +31,10 @@ struct ContentView: View {
     @State private var score = 0
     @State private var guessedCountry = 0
     
+    private var isAnswerCorrect: Bool {
+        return correctAnswer == guessedCountry
+    }
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
@@ -59,15 +63,29 @@ struct ContentView: View {
                 .frame(minWidth: 500)
                 
                 
-                ForEach(0 ..< 3) { number in
-                    Button(action: {
-                        self.flagTapped(number)
-                    }) {
-                        Image(self.countries[number])
-                            .renderingMode(.original)
-                            .flagImageStyle()
+                if showingScore {
+                    ForEach(0 ..< 3) { number in
+                        Button(action: {
+                            self.flagTapped(number)
+                        }) {
+                            Image(self.countries[number])
+                                .renderingMode(.original)
+                                .flagImageStyle()
+                                .opacity(number == self.correctAnswer ? 1 : 0.25)
+                        }
+                    }
+                } else {
+                    ForEach(0 ..< 3) { number in
+                        Button(action: {
+                            self.flagTapped(number)
+                        }) {
+                            Image(self.countries[number])
+                                .renderingMode(.original)
+                                .flagImageStyle()
+                        }
                     }
                 }
+
                 
                 Spacer()
             }
