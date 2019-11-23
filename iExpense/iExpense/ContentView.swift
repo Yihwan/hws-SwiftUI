@@ -24,13 +24,18 @@ struct ContentView: View {
                         }
                         
                         Spacer()
-                        Text("$\(item.amount)")
+                        
+                        ZStack(alignment: .trailing) {
+                            Color.green
+                                .frame(width: 200)
+                            Text("$\(item.amount)")
+                        }
                     }
                 }
                 .onDelete(perform: removeItems)
             }
-        .navigationBarTitle("iExpense")
-            .navigationBarItems(trailing:
+            .navigationBarTitle("iExpense")
+            .navigationBarItems(leading: EditButton(), trailing:
                 Button(action: {
                     self.showingAddExpense = true
                 }) {

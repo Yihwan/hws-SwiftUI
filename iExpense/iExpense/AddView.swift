@@ -15,6 +15,7 @@ struct AddView: View {
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = ""
+    @State private var isAlertShown = false
     
     static let types = ["Business", "Personal"]
     
@@ -37,9 +38,18 @@ struct AddView: View {
                     self.expenses.items.append(item)
                     
                     self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    self.isAlertShown = true
                 }
             })
+                .alert(isPresented: $isAlertShown) {
+                    Alert(title: Text("Invalid input"), message: Text("Only enter positive integers"), dismissButton: .default(Text("OK")))
+            }
         }
+    }
+    
+    func validateInput() {
+        
     }
 }
 
