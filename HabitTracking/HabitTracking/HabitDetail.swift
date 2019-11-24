@@ -9,13 +9,16 @@
 import SwiftUI
 
 struct HabitDetail: View {
-    var habit: Habit
+    @ObservedObject var habit: Habit
     
     var body: some View {
         NavigationView {
             Form {
                 Text(habit.name)
                 Text(habit.description)
+                Stepper(value: $habit.count, in: 0...20) {
+                    Text("Count: \(habit.count)")
+                }
             }
             .navigationBarTitle(habit.name)
         }
